@@ -13,7 +13,7 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress #MariaDBのパスワード(MARIADB_PASSWORDで設定したパスワード)
       WORDPRESS_DB_NAME: wordpress # mariadbのデータベース名（MARIADB_DATABASEで設定した名前）
     volumes:
-      - wordpress-data:/var/www/html
+      - ./html:/var/www/html
 
   db:
     image: mariadb:10.7
@@ -27,5 +27,4 @@ services:
       - db-data:/var/lib/mysql
 
 volumes:
-  wordpress-data:
   db-data:
