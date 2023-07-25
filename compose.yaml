@@ -1,0 +1,31 @@
+services:
+
+  wordpress:
+    image: wordpress:6.0
+    #restart: always
+    depends_on: # コンテナ間の依存関係を設定　コンテナを作成する順番を制御
+      - db # dbコンテナが先に作成される。 dbコンテナ作成→wordpressコンテナ作成
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db # mariadbのコンテナ名
+      WORDPRESS_DB_USER: wordpress #MariaDBのユーザー名(MARIADB_USERで設定した名前)
+      WORDPRESS_DB_PASSWORD: wordpress #MariaDBのパスワード(MARIADB_PASSWORDで設定したパスワード)
+      WORDPRESS_DB_NAME: wordpress # mariadbのデータベース名（MARIADB_DATABASEで設定した名前）
+    volumes:
+      - wordpress-data:/var/www/html
+
+  db:
+    image: mariadb:10.7
+    #restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  wordpress-data:
+  db-data:
