@@ -1,0 +1,2 @@
+# wordpress-mariadb
+WordPressとMariaDBのDockerコンテナ設定ファイル
